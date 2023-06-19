@@ -36,7 +36,7 @@ router
 
 router
     .route('/sendMail')
-    .post(auth, adminctrl.sendMail)
+    // .post(auth, adminctrl.sendMail)
     .get(auth, adminctrl.getMails)
 
 router

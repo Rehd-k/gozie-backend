@@ -9,8 +9,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     refererId: String,
-    hash: String,
-    salt: String,
+    password: String,
     firstName: {
         type: String,
         required: "Please include your first name",
@@ -63,17 +62,11 @@ const userSchema = new Schema({
 
 
 userSchema.methods.setPassword = function (password) {
-    this.salt = crypto.randomBytes(16).toString("hex");
-    this.hash = crypto
-        .pbkdf2Sync(password, this.salt, 1000, 64, "sha512")
-        .toString("hex");
+    this.password = password
 };
 
 userSchema.methods.validPassword = function (password) {
-    const hash = crypto
-        .pbkdf2Sync(password, this.salt, 1000, 64, "sha512")
-        .toString("hex");
-    return this.hash === hash;
+    return this.password === password;
 };
 
 userSchema.methods.generateJWT = function () {

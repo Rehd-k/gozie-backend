@@ -132,84 +132,84 @@ const delete_one_user = (req, res, next) => {
 }
 
 
-const sendMail = async (req, res) => {
+// const sendMail = async (req, res) => {
 
-    let recipiants = []
-    let success
-    recipiants = req.body.recipiants
+//     let recipiants = []
+//     let success
+//     recipiants = req.body.recipiants
 
-    for (let recipiant of recipiants) {
+//     for (let recipiant of recipiants) {
 
-        const SendMail = `
-        <div style="padding-left: 5px; padding-right: 5px;">
-          <div
-            style=" height:251px; width: 277px; margin: auto; padding-top: 30px;">
-            <img src="https://financeforte.org/logoBlack.png" alt="" srcset=""  style="justify-content: center; margin: auto; align-content: center; align-items: center;">
-          </div>
-        <h1 style=" text-align: center;">${req.body.Header}</h1>
-        <hr>
-        <h2>Dear ${recipiant.firstName}</h2>
-        <p style="text-align: left; line-height: 40px;">${req.body.body}</p>
-        <br>
-        <hr>
-        <spanb style="text-align: center;">
-          <p>To get in touch with the company, contact us at:</p>
-          <p>support@financeforte.org</p>
-          <br>
-          <p>© Copyright 2022 financeforte All rights reserved.</p>
-          </span>
-      </div>`
+//         const SendMail = `
+//         <div style="padding-left: 5px; padding-right: 5px;">
+//           <div
+//             style=" height:251px; width: 277px; margin: auto; padding-top: 30px;">
+//             <img src="https://financeforte.org/logoBlack.png" alt="" srcset=""  style="justify-content: center; margin: auto; align-content: center; align-items: center;">
+//           </div>
+//         <h1 style=" text-align: center;">${req.body.Header}</h1>
+//         <hr>
+//         <h2>Dear ${recipiant.firstName}</h2>
+//         <p style="text-align: left; line-height: 40px;">${req.body.body}</p>
+//         <br>
+//         <hr>
+//         <spanb style="text-align: center;">
+//           <p>To get in touch with the company, contact us at:</p>
+//           <p>support@financeforte.org</p>
+//           <br>
+//           <p>© Copyright 2022 financeforte All rights reserved.</p>
+//           </span>
+//       </div>`
 
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: "mail.financeforte.org",
-            port: 465,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: 'support@financeforte.org', // generated ethereal user
-                pass: '1000infidel', // generated ethereal password
-            },
-            tls: {
-                rejectUnauthorized: false
-            }
-        });
+//         // create reusable transporter object using the default SMTP transport
+//         let transporter = nodemailer.createTransport({
+//             host: "mail.financeforte.org",
+//             port: 465,
+//             secure: true, // true for 465, false for other ports
+//             auth: {
+//                 user: 'support@financeforte.org', // generated ethereal user
+//                 pass: '1000infidel', // generated ethereal password
+//             },
+//             tls: {
+//                 rejectUnauthorized: false
+//             }
+//         });
 
-        // send mail with defined transport object
-        let info = await transporter.sendMail({
-            from: `"${req.body.senderName}" <support@financeforte.org>`, // sender address
-            to: `${recipiant.email}`, // list of receivers
-            subject: `${req.body.subject}`, // Subject line
-            text: "", // plain text body
-            html: SendMail, // html body
-        });
+//         // send mail with defined transport object
+//         let info = await transporter.sendMail({
+//             from: `"${req.body.senderName}" <support@financeforte.org>`, // sender address
+//             to: `${recipiant.email}`, // list of receivers
+//             subject: `${req.body.subject}`, // Subject line
+//             text: "", // plain text body
+//             html: SendMail, // html body
+//         });
 
 
 
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    }
+//         console.log("Message sent: %s", info.messageId);
+//         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+//     }
 
-    mail.create({
-        Header: req.body.Header,
-        body: req.body.body,
-        recipiants: req.body.recipiants,
-        senderName: req.body.senderName,
-        subject: req.body.subject
-    },
-        (err, result) => {
-            if (err) {
-                res
-                    .json({
-                        message: err
-                    })
-            } else {
-                res
-                    .status(201)
-                    .json(result)
-            }
-        })
+//     mail.create({
+//         Header: req.body.Header,
+//         body: req.body.body,
+//         recipiants: req.body.recipiants,
+//         senderName: req.body.senderName,
+//         subject: req.body.subject
+//     },
+//         (err, result) => {
+//             if (err) {
+//                 res
+//                     .json({
+//                         message: err
+//                     })
+//             } else {
+//                 res
+//                     .status(201)
+//                     .json(result)
+//             }
+//         })
 
-}
+// }
 
 
 const getMails = async (req, res) => {
@@ -234,7 +234,6 @@ module.exports = {
     read_one_user,
     read_one_user_by_mail,
     delete_one_user,
-    sendMail,
     getMails,
     updateUser
 }
