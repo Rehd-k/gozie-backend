@@ -2,16 +2,11 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const withdrawal = mongoose.model('withdraw')
-const { nanoid } = require('nanoid')
-const cloudinary = require("cloudinary").v2;
+const { nanoid } = require('nanoid');
 const nodemailer = require('nodemailer');
 
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET,
-});
+
 
 
 const register = async (req, res, next) => {
@@ -139,18 +134,6 @@ const get_profile = (req, res) => {
 }
 
 const update_user = async (req, res, next) => {
-    let images
-
-    if (req.file) {
-        let image = await cloudinary.uploader.upload(req.file.path);
-        images = {
-            url: image.secure_url,
-            public_id: image.public_id,
-        };
-    }
-
-    console.log(images)
-
     User.findById(req.payload._id).exec((err, iterm) => {
         if (!iterm) {
             res.status(404).json({

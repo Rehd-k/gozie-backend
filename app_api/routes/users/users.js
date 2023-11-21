@@ -1,14 +1,11 @@
 let express = require('express');
 let router = express.Router();
 const jwt = require('express-jwt');
-const multer = require('multer')
 const auth = jwt({
   secret: process.env.JWT_SECRET,
   userProperty: 'payload',
   algorithms: ['HS256']
 });
-
-const uploadIterms = multer({ dest: "profilePic/" });
 
 const User = require('../../controllers/user/user')
 
@@ -30,7 +27,7 @@ router
 /* PUT & DELETE update users */
 router
   .route('/findOne')
-  .patch(auth, uploadIterms.single("images"), auth, User.update_user)
+  .patch(auth, User.update_user)
   .delete(auth, User.delete_user)
 
 router
