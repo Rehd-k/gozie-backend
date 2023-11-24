@@ -30,6 +30,10 @@ const investment = new Schema({
         type: Number,
         required: true
     },
+    coin: {
+        type: String,
+        require: true
+    },
     increament: {
         type: Number,
         required: true
@@ -46,8 +50,8 @@ const investment = new Schema({
         type: String,
         default: 'pending'
     },
-    withdarwable : {
-        type : Boolean,
+    withdarwable: {
+        type: Boolean,
         default: false
     },
     wallet: {

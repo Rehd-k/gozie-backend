@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 
 
 const craete_investment = (req, res, next) => {
+    console.log(req.body)
     
     investment.create({
         _id: new mongoose.Types.ObjectId(),
@@ -15,6 +16,7 @@ const craete_investment = (req, res, next) => {
         email: req.payload.email,
         name: req.payload.firstName,
         increament: req.body.increament,
+        coin : req.body.coin,
         interval: 'days',
         investmentId: nanoid(),
         paymentId: nanoid(),
